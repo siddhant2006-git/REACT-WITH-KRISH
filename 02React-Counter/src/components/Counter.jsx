@@ -1,6 +1,7 @@
 import React from 'react'
 import { useState } from 'react'
 
+//useState- those hook is use to create the virtual dom and change to implement without reload page 
 
 function Counter() {
   const [count, setCount] = useState(0)
