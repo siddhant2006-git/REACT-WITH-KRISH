@@ -1,7 +1,7 @@
 import "./App.css";
 import Layout from "./components/Layout/Layout";
 import Home from "./components/pages/Home";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, RouterContextProvider, RouterProvider } from "react-router-dom";
 import Search from "./components/pages/Search";
 import SingleGrif from "./components/pages/SingleGrif";
 import Category from "./components/pages/category";
@@ -36,7 +36,11 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-  return <RouterProvider router={router} />;
+  <RouterContextProvider>
+    return <RouterProvider router={router} />;
+</RouterContextProvider>
+
+
 }
 
 export default App;
