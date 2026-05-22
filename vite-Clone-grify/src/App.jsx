@@ -38,11 +38,7 @@ function App() {
     <GifProvider>
       <RouterProvider router={router} />
     </GifProvider>
-  
-  
-  
-  
-  )
+  );
 }
 
 export default App;
