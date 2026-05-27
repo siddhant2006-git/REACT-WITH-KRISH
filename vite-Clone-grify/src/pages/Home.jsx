@@ -14,6 +14,7 @@ function Home() {
           limit: 20,
           offset: 0,
           rating: "g",
+          type: filter,
         });
 
         setGif(data);
@@ -34,8 +35,10 @@ function Home() {
         alt="banner"
         className="mt-2 rounded-lg w-full"
       />
+
       <FilterGif showTrending />
-      <GifSearch/>
+
+      <GifSearch />
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 mt-4">
         {gif.length > 0 ? (

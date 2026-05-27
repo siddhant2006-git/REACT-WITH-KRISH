@@ -6,7 +6,11 @@ import Home from "./pages/Home";
 import Search from "./pages/Search";
 import Favarious from "./pages/Favarious";
 import Single_gif from "./pages/Single_gif";
+import Categories from "./pages/Categories";
 import GifProvider from "./context/context";
+import { IoLogIn } from "react-icons/io5";
+
+
 
 function App() {
   // create-browser-Router- it is function of dom which are render(change) the page/ components.
@@ -19,17 +23,27 @@ function App() {
           path: "/",
           element: <Home />,
         },
+      
         {
-          path: "/search/:category",
+          path: "/search/:query",
           element: <Search />,
         },
         {
-          path: "/favarious",
+          path: "../login",
+          element:<IoLogIn/>
+        },
+      
+        {
+          path: "favarious",
           element: <Favarious />,
         },
         {
-          path: "/single_gif",
+          path: ":type/:slug",
           element: <Single_gif />,
+        },
+        {
+          path: ":category",
+          element: <Categories />,
         },
       ],
     },

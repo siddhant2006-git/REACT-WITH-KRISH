@@ -1,5 +1,19 @@
 import { createRoot } from "react-dom/client";
 import "./index.css";
 import App from "./App.jsx";
+import { ClerkProvider } from "@clerk/clerk-react";
 
-createRoot(document.getElementById("root")).render(<App />);
+const clerkPubKey = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
+console.log("Clerk Publishable Key:", clerkPubKey);
+ 
+if (!clerkPubKey) {
+  throw new Error("Clerk publishable key is missing. Please set VITE_CLERK_PUBLISHABLE_KEY in your .env file.");
+}
+
+createRoot(document.getElementById("root")).render(
+
+  <ClerkProvider publishableKey={clerkPubKey}>
+      <App />
+  </ClerkProvider>
+);
+
