@@ -37,25 +37,42 @@ const GifPage = () => {
   }, []);
 
 
-    const shareGif = async () => {
+  const shareGif = async () => {
     try {
-      const shareUrl = gif?.url || window.location.href;
+      const gifUrl =
+        gif?.images?.original?.url ||
+        gif?.images?.fixed_height?.url ||
+        gif?.images?.downsized?.url;
 
-      if (navigator.share) {
+      if (!gifUrl) {
+        alert("GIF not found");
+        return;
+      }
+
+      // Convert GIF URL into actual file
+      const response = await fetch(gifUrl);
+      const blob = await response.blob();
+
+      const file = new File([blob], "shared-gif.gif", {
+        type: "image/gif",
+      });
+
+      // Share actual GIF file
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
         await navigator.share({
           title: gif?.title || "GIF",
           text: "Check this GIF!",
-          url: shareUrl,
+          files: [file],
         });
       } else {
-        // Fallback: copy URL to clipboard
-        await navigator.clipboard.writeText(shareUrl);
-        alert("GIF URL copied to clipboard!");
+        // Fallback if browser does not support file sharing
+        await navigator.clipboard.writeText(gifUrl);
+        alert("Your browser cannot share actual GIF. GIF URL copied!");
       }
     } catch (error) {
       console.log("Error sharing the GIF:", error);
-      }
-      
+      alert("Error sharing GIF");
+    }
   };
 
   const EmbedGif = async () => {
