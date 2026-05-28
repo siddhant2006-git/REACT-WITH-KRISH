@@ -54,7 +54,8 @@ const GifPage = () => {
       }
     } catch (error) {
       console.log("Error sharing the GIF:", error);
-    }
+      }
+      
   };
 
   const EmbedGif = async () => {

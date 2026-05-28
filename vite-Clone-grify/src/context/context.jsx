@@ -11,6 +11,7 @@ const GifProvider = ({ children }) => {
   const [gif, setGif] = useState([]);
 
   const gf = new GiphyFetch(import.meta.env.VITE_API_KEY);
+  
 
   const addToFavorites = (gifId) => {
     if (favorites.includes(gifId)) {

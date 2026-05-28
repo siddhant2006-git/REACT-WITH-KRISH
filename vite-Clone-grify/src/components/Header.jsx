@@ -3,6 +3,7 @@ import { GifState } from "../context/context";
 
 import { Link } from "react-router-dom";
 import { HiEllipsisVertical, HiMiniBars3BottomRight } from "react-icons/hi2";
+import { SignedIn, SignedOut, UserButton, SignInButton } from "@clerk/clerk-react";
 
 const Header = () => {
   const [categories, setCategories] = useState([]);
@@ -60,6 +61,18 @@ const Header = () => {
               <Link to="/favarious">Favorite GIFs</Link>
             </div>
           )}
+
+          <SignedOut>
+            <SignInButton mode="modal">
+              <button className="h-9 bg-gradient-to-tr from-pink-600 to-pink-400 text-white px-6 rounded font-bold">
+                Sign In
+              </button>
+            </SignInButton>
+          </SignedOut>
+
+          <SignedIn>
+            <UserButton afterSignOutUrl="/" />
+          </SignedIn>
 
           <button onClick={() => setShowCategories(!showCategories)}>
             <HiMiniBars3BottomRight

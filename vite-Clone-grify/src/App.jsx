@@ -1,4 +1,5 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { SignIn, SignUp, SignedIn, SignedOut, RedirectToSignIn } from "@clerk/clerk-react";
 
 import "./App.css";
 import Layout from "./Layout/Layout";
@@ -8,37 +9,36 @@ import Favarious from "./pages/Favarious";
 import Single_gif from "./pages/Single_gif";
 import Categories from "./pages/Categories";
 import GifProvider from "./context/context";
-import Login from "./pages/login";
-import { SignUp } from "@clerk/clerk-react";
 
-
+function ProtectedRoute({ children }) {
+  return (
+    <>
+      <SignedIn>{children}</SignedIn>
+      <SignedOut>
+        <RedirectToSignIn />
+      </SignedOut>
+    </>
+  );
+}
 
 function App() {
-  // create-browser-Router- it is function of dom which are render(change) the page/ components.
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <Layout />,
+      element: (
+        <ProtectedRoute>
+          <Layout />
+        </ProtectedRoute>
+      ),
       children: [
         {
-          path: "/",
+          index: true,
           element: <Home />,
         },
         {
-          path: "../login",
-          element: <Login />
-        },
-        {
-          path: "/signup",
-          element: <SignUp />
-        },
-      
-        {
-          path: "/search/:query",
+          path: "search/:query",
           element: <Search />,
         },
-    
-      
         {
           path: "favarious",
           element: <Favarious />,
@@ -53,9 +53,23 @@ function App() {
         },
       ],
     },
+    {
+      path: "/sign-in",
+      element: (
+        <div className="min-h-screen w-full flex items-center justify-center bg-gradient-to-br from-black via-gray-900 to-purple-950 px-4">
+          <SignIn routing="path" path="/sign-in" signUpUrl="/sign-up" />
+        </div>
+      ),
+    },
+    {
+      path: "/sign-up",
+      element: (
+        <div className="min-h-screen w-full flex items-center justify-center bg-gradient-to-br from-black via-gray-900 to-purple-950 px-4">
+          <SignUp routing="path" path="/sign-up" signInUrl="/sign-in" />
+        </div>
+      ),
+    },
   ]);
-
-  // RouterProvider- it is the component of dom which are router connect to router app .
 
   return (
     <GifProvider>
